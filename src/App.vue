@@ -1,16 +1,17 @@
 <template>
-  <div id="app">
-    <AllStudents />
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/allStudents">All Students</router-link>
   </div>
+  <router-view />
 </template>
 
 <script>
-import AllStudents from "./components/AllStudents.vue";
 
 export default {
   name: 'App',
   components: {
-    AllStudents
+    // AllStudents
   }
 }
 </script>
@@ -22,6 +23,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: aqua;
   margin-top: 60px;
 }
 </style>
