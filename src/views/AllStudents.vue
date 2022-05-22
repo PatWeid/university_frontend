@@ -1,4 +1,5 @@
 <template>
+  <h1>All Students</h1>
   <div class="container">
     <table class="table table-striped">
       <thead>
