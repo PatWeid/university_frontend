@@ -11,9 +11,9 @@
       </thead>
       <tbody>
       <tr v-for="student in students" v-bind:key="student.matNr">
-        <td>{{student.matNr}}</td>
-        <td>{{student.firstName}}</td>
-        <td>{{student.lastName}}</td>
+        <td>{{ student.matNr }}</td>
+        <td>{{ student.firstName }}</td>
+        <td>{{ student.lastName }}</td>
       </tr>
       </tbody>
     </table>
@@ -30,9 +30,9 @@ export default {
       students: []
     }
   },
-created() {
-  this.getAllStudents();
-},
+  created() {
+    this.getAllStudents();
+  },
   methods: {
     getAllStudents() {
       StudentService.getAllStudents().then((response) => {
