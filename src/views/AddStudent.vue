@@ -25,7 +25,7 @@ import Datepicker from 'vue3-datepicker'
         <v-row justify="center">
           <v-col><p>DOB:</p></v-col>
           <v-col>
-            <datepicker @click="validateDOB" selected="" v-model="dob">DOB</datepicker>
+            <datepicker @click="validateDOB" selected="" v-model="dob" :upper-limit="today">DOB</datepicker>
           </v-col>
           <v-col><p>Joining Date:</p></v-col>
           <v-col>
@@ -34,7 +34,7 @@ import Datepicker from 'vue3-datepicker'
         </v-row>
         <v-row>
           <v-container class="px-0" fluid>
-            <v-radio-group @change="addStudent" v-model="radioGroup">
+            <v-radio-group v-model="gender">
               <v-radio label="male" value="male"></v-radio>
               <v-radio label="female" value="female"></v-radio>
             </v-radio-group>
@@ -64,6 +64,7 @@ import Datepicker from 'vue3-datepicker'
 </template>
 
 <script>
+import studentService from "../services/studentService.js";
 export default {
   name: "AddStudent",
   data: () => ({
@@ -88,16 +89,17 @@ export default {
     departmentRules: [
         v => v != 0 || 'Select Department'
     ],
-    radioGroup: 0,
+    gender: 0,
     departments: ['Computer Science', 'Mathematics', 'Engineering'],
     department: '',
   }),
   methods: {
     addStudent() {
+      studentService.addStudent(this.id, this.firstName, this.lastName, this.dob, this.joiningDate, this.gender, this.department, this.email);
+      // TODO !!!!!!!!!!!!!!!!!!!!!!!!date validation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       let actualDate = new Date();
-      // console.log(new Date(this.dob).getTime());
       console.log(this.dob < actualDate);
-      console.log("radiogroup: " + this.radioGroup);
+      console.log("radiogroup: " + this.gender);
       console.log(this.department);
     },
     validateDOB() {

@@ -7,6 +7,9 @@ class StudentService {
     getAllStudents() {
         return axios.get(ENDPOINT_STUDENTS_URL);
     }
+    addStudent(id, firstName, lastName, dob, joiningDate, gender, department, email) {
+        return axios.post(ENDPOINT_STUDENTS_URL, {id, firstName, lastName, dob, joiningDate, gender, department, email});
+    }
 }
 
 export default new StudentService();
