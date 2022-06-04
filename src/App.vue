@@ -1,29 +1,20 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/allStudents">All Students</router-link>
-  </div>
-  <router-view />
+  <v-app>
+    <NavbarComponent />
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
+import NavbarComponent from "@/components/NavbarComponent";
 
 export default {
   name: 'App',
-  components: {
-    // AllStudents
-  }
+  components: {NavbarComponent},
+  data: () => ({
+    //
+  }),
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  background-color: aqua;
-  margin-top: 60px;
-}
-</style>
