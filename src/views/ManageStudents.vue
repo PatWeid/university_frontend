@@ -22,6 +22,7 @@
       <td>{{ student.gender }}</td>
       <td>{{ student.department }}</td>
       <td>{{ student.email }}</td>
+      <td><v-btn @click="deleteStudent(student.id)">Delete</v-btn></td>
     </tr>
     <v-btn variant="outlined" color="primary" @click="addStudent">add Student</v-btn>
     </tbody>
@@ -49,6 +50,9 @@ export default {
       StudentService.getAllStudents().then((response) => {
         this.students = response.data;
       })
+    },
+    deleteStudent(id) {
+      StudentService.deleteStudent(id);
     }
   }
 }
