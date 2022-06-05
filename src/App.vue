@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <NavbarComponent />
+<!--    <NavbarComponent />-->
     <v-main>
       <router-view/>
     </v-main>
@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import NavbarComponent from "@/components/NavbarComponent";
+// import NavbarComponent from "@/components/NavbarComponent";
 
 export default {
   name: 'App',
-  components: {NavbarComponent},
+  // components: {NavbarComponent},
   data: () => ({
     //
   }),

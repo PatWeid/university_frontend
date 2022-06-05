@@ -1,9 +1,11 @@
 <script setup>
 import Datepicker from 'vue3-datepicker'
+import AdminNavbar from "@/components/AdminNavbar";
 </script>
 <template>
+  <AdminNavbar/>
   <h1>Update Student</h1>
-  <v-card title="Student">
+  <v-card>
 
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-container>
@@ -50,9 +52,24 @@ import Datepicker from 'vue3-datepicker'
         </v-row>
       </v-container>
     </v-form>
+    <v-container>
+      <v-row justify="space-between">
+        <v-col xl="4" lg="4" md="4" sm="12" xs="12" style="background-color: deeppink">
+          <v-container>
+            <v-row justify="space-between">
+              <v-col>
+                <v-btn :disabled="!valid" @click="updateStudent">Update Student</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn @click="cancel">Cancel</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-spacer/>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-card>
-  <v-btn @click="updateStudent">Update</v-btn>
-  <v-btn>TODO!!!!Cancel</v-btn>
 
 </template>
 
@@ -99,6 +116,9 @@ export default {
   methods: {
     updateStudent() {
       studentService.updateStudent(this.id, this.firstName, this.lastName, this.dob, this.joiningDate, this.gender, this.department, this.email);
+    },
+    cancel() {
+      this.$router.back();
     }
   }
 }

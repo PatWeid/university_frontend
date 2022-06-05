@@ -1,13 +1,12 @@
 <script setup>
 import Datepicker from 'vue3-datepicker'
+import AdminNavbar from "@/components/AdminNavbar";
 </script>
 
 <template>
+  <admin-navbar/>
   <h1>Add Student</h1>
-
-
-  <v-card title="Add Student">
-
+  <v-card>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-container>
         <v-row justify="space-around">
@@ -15,7 +14,7 @@ import Datepicker from 'vue3-datepicker'
             <v-text-field v-model="id" :rules="idRules" label="Student ID"></v-text-field>
           </v-col>
           <v-col>
-            <v-text-field v-model="firstName" :rules="firstNameRules" label="Firstname" ></v-text-field>
+            <v-text-field v-model="firstName" :rules="firstNameRules" label="Firstname"></v-text-field>
           </v-col>
           <v-col>
             <v-text-field v-model="lastName" label="Lastname"></v-text-field>
@@ -42,16 +41,32 @@ import Datepicker from 'vue3-datepicker'
         <v-row>
           <v-col>
             <v-select :rules="departmentRules"
-                :items="departments"
-                label="Department"
-                v-model="department"
+                      :items="departments"
+                      label="Department"
+                      v-model="department"
             ></v-select>
           </v-col>
           <v-col>
             <v-text-field v-model="email" :rules="emailRules" label="E-Mail"></v-text-field>
           </v-col>
         </v-row>
-        <v-btn :disabled="!valid" @click="addStudent">Add Student</v-btn>
+        <v-container>
+          <v-row justify="space-between">
+            <v-col xl="4" lg="4" md="4" sm="12" xs="12" style="background-color: deeppink">
+              <v-container>
+                <v-row justify="space-between">
+                  <v-col>
+                    <v-btn :disabled="!valid" @click="addStudent">Add Student</v-btn>
+                  </v-col>
+                  <v-col>
+                    <v-btn @click="cancel">Cancel</v-btn>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <v-spacer/>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-container>
 
 
@@ -62,6 +77,7 @@ import Datepicker from 'vue3-datepicker'
 
 <script>
 import studentService from "../services/studentService.js";
+
 export default {
   name: "AddStudent",
   data: () => ({
@@ -72,6 +88,10 @@ export default {
     firstName: '',
     lastName: '',
     email: '',
+    // valid: {
+    //   Type: Boolean,
+    //   value: true,
+    // },
     valid: true,
     idRules: [
       v => !!v || 'Student ID is required',
@@ -84,7 +104,7 @@ export default {
       v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
     ],
     departmentRules: [
-        v => v != 0 || 'Select Department'
+      v => v != 0 || 'Select Department'
     ],
     gender: 0,
     departments: ['Computer Science', 'Mathematics', 'Engineering'],
@@ -100,7 +120,12 @@ export default {
       console.log(this.department);
     },
     validateDOB() {
+      // TODO !!!!!!!!!!!!!!!!!!!!!!!!date validation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       console.log('validate DOB');
+    },
+    cancel() {
+      console.log("picked DOB: " + this.dob);
+      this.$router.back();
     }
   }
 }

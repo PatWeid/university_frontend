@@ -1,6 +1,6 @@
 <template>
+  <admin-navbar/>
   <h1>Manage Students</h1>
-
   <v-table>
     <thead>
     <th class="text-left">Student ID</th>
@@ -17,8 +17,8 @@
       <td>{{ student.id }}</td>
       <td>{{ student.firstName }}</td>
       <td>{{ student.lastName }}</td>
-      <td>{{ student.dob }}</td>
-      <td>{{ student.joiningDate }}</td>
+      <td>{{ student.dob.slice(0,10)}}</td>
+      <td>{{ student.joiningDate.slice(0,10) }}</td>
       <td>{{ student.gender }}</td>
       <td>{{ student.department }}</td>
       <td>{{ student.email }}</td>
@@ -36,9 +36,11 @@
 
 <script>
 import StudentService from "../services/studentService.js";
+import AdminNavbar from "@/components/AdminNavbar";
 
 export default {
   name: "manageStudents",
+  components: {AdminNavbar},
   data() {
     return {
       students: []
@@ -60,7 +62,6 @@ export default {
       StudentService.deleteStudent(id);
     },
     updateStudent(student) {
-      console.log("updateharder: " + student.id);
       this.$router.push({
         name: "UpdateStudent",
         params: {

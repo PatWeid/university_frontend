@@ -1,5 +1,4 @@
 import { createWebHistory, createRouter } from "vue-router";
-import AllStudents from "@/views/AllStudents.vue";
 import Login from "@/views/Login";
 import ManageData from "@/views/ManageData";
 import ManageStudents from "@/views/ManageStudents";
@@ -11,11 +10,6 @@ const routes = [
         path: "/",
         name: "Login",
         component: Login,
-    },
-    {
-        path: "/allStudents",
-        name: "AllStudents",
-        component: AllStudents,
     },
     {
         path: "/manageData",

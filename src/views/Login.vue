@@ -1,12 +1,12 @@
 <template>
 
   <h1>Login</h1>
-  <v-container class="bg-surface-variant">
+  <v-container>
     <v-row justify="space-around">
       <v-col  xl="4" lg="4" md="4" sm="12" xs="12">
         <v-card title="Admin Login">
           <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field v-model="userName_a" :rules="userNameRules" label="Username"></v-text-field>
+            <v-text-field v-model="userName_a" label="Username"></v-text-field>
             <v-text-field v-model="password_a" type="password" label="Password"></v-text-field>
             <v-btn :disabled="!valid" @click="adminLogin">Login</v-btn>
           </v-form>
@@ -15,7 +15,7 @@
       <v-col xl="4" lg="4" md="4" sm="12" xs="12">
         <v-card title="Staff Login">
           <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field v-model="userName_s" :rules="userNameRules" label="Username"></v-text-field>
+            <v-text-field v-model="userName_s" label="Username"></v-text-field>
             <v-text-field v-model="password_s" type="password" label="Password"></v-text-field>
             <v-btn :disabled="!valid" @click="staffLogin">Login</v-btn>
           </v-form>
@@ -39,14 +39,11 @@ export default {
     staffUserName: 'Staff',
     staffPassword: 'Staff',
     count: 3,
-    userNameRules: [
-      // v => !!v || 'Name is required',
-    ]
   }),
   methods: {
     adminLogin() {
       if (!(this.userName_a === this.adminUserName && this.password_a === this.adminPassword)) {
-        this.$router.push('/allStudents')
+        this.$router.push('/manageData');
       } else {
         this.count--;
         alert('invalid Login ' + this.count + ' more tries');
@@ -57,7 +54,7 @@ export default {
     },
     staffLogin() {
       if (!(this.userName_s === this.staffUserName && this.password_s === this.staffPassword)) {
-        this.$router.push('/allStudents')
+        this.$router.push('/allStudents');
       } else {
         this.count--;
         alert('invalid Login ' + this.count + ' more tries');
