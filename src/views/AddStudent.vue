@@ -23,11 +23,15 @@ import AdminNavbar from "@/components/AdminNavbar";
         <v-row justify="center">
           <v-col><p>DOB:</p></v-col>
           <v-col>
-            <datepicker @click="validateDOB" selected="" v-model="dob" :upper-limit="today">DOB</datepicker>
+            <v-input :model-value="dob" :rules="dobRules">
+              <datepicker v-model="dob" :upper-limit="today"></datepicker>
+            </v-input>
           </v-col>
           <v-col><p>Joining Date:</p></v-col>
           <v-col>
-            <datepicker @click="validateDOB" selected="" v-model="joiningDate" :upper-limit="today">DOB</datepicker>
+            <v-input :model-value="joiningDate" :rules="joiningDateRules">
+              <datepicker v-model="joiningDate" :upper-limit="today"></datepicker>
+            </v-input>
           </v-col>
         </v-row>
         <v-row>
@@ -50,33 +54,45 @@ import AdminNavbar from "@/components/AdminNavbar";
             <v-text-field v-model="email" :rules="emailRules" label="E-Mail"></v-text-field>
           </v-col>
         </v-row>
-        <v-container>
-          <v-row justify="space-between">
-            <v-col xl="4" lg="4" md="4" sm="12" xs="12" style="background-color: deeppink">
-              <v-container>
-                <v-row justify="space-between">
-                  <v-col>
-                    <v-btn :disabled="!valid" @click="addStudent">Add Student</v-btn>
-                  </v-col>
-                  <v-col>
-                    <v-btn @click="cancel">Cancel</v-btn>
-                  </v-col>
-                </v-row>
-              </v-container>
-              <v-spacer/>
-            </v-col>
-          </v-row>
-        </v-container>
       </v-container>
-
-
     </v-form>
+
+    <v-container>
+      <v-row justify="space-between">
+        <v-col xl="4" lg="4" md="4" sm="12" xs="12" style="background-color: deeppink">
+          <v-container>
+            <v-row justify="space-between">
+              <v-col>
+                <v-btn :disabled="!valid" @click="addStudent">Add Student</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn @click="cancel">Cancel</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-spacer/>
+        </v-col>
+      </v-row>
+    </v-container>
+
 
   </v-card>
 </template>
 
 <script>
 import studentService from "../services/studentService.js";
+
+function validateDOB(dob) {
+  let upperBorder = new Date();
+  let upperYear = upperBorder.getUTCFullYear() - 17;
+  upperBorder.setFullYear(upperYear);
+
+  let lowerBorder = new Date();
+  let lowerYear = lowerBorder.getUTCFullYear() - 60;
+  lowerBorder.setFullYear(lowerYear);
+
+  return dob > lowerBorder && dob < upperBorder;
+}
 
 export default {
   name: "AddStudent",
@@ -88,14 +104,11 @@ export default {
     firstName: '',
     lastName: '',
     email: '',
-    // valid: {
-    //   Type: Boolean,
-    //   value: true,
-    // },
     valid: true,
     idRules: [
       v => !!v || 'Student ID is required',
-      v => Number.isInteger(Number(v)) || 'Not a Number'],
+      v => Number.isInteger(Number(v)) || 'Not a Number',
+    ],
     firstNameRules: [
       v => !!v || 'Firstname is required',
     ],
@@ -104,7 +117,13 @@ export default {
       v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
     ],
     departmentRules: [
-      v => v != 0 || 'Select Department'
+      v => v != 0 || 'Select Department',
+    ],
+    dobRules: [
+      dob => validateDOB(dob) || 'Invalid DOB - you must be between 17 and 60',
+    ],
+    joiningDateRules: [
+      v => v.getUTCFullYear() === 2015 || 'Invalid Year - only 2015 allowed',
     ],
     gender: 0,
     departments: ['Computer Science', 'Mathematics', 'Engineering'],
@@ -113,20 +132,11 @@ export default {
   methods: {
     addStudent() {
       studentService.addStudent(this.id, this.firstName, this.lastName, this.dob, this.joiningDate, this.gender, this.department, this.email);
-      // TODO !!!!!!!!!!!!!!!!!!!!!!!!date validation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      let actualDate = new Date();
-      console.log(this.dob < actualDate);
-      console.log("radiogroup: " + this.gender);
-      console.log(this.department);
-    },
-    validateDOB() {
-      // TODO !!!!!!!!!!!!!!!!!!!!!!!!date validation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      console.log('validate DOB');
+      alert('Student added');
     },
     cancel() {
-      console.log("picked DOB: " + this.dob);
       this.$router.back();
-    }
+    },
   }
 }
 </script>

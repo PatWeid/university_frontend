@@ -11,7 +11,7 @@ import AdminNavbar from "@/components/AdminNavbar";
       <v-container>
         <v-row justify="space-around">
           <v-col>
-            <v-text-field v-model="id" :rules="idRules" label="Student ID"></v-text-field>
+            <v-text-field v-model="id" :disabled=true :rules="idRules" label="Student ID"></v-text-field>
           </v-col>
           <v-col>
             <v-text-field v-model="firstName" :rules="firstNameRules" label="Firstname"></v-text-field>
@@ -23,11 +23,15 @@ import AdminNavbar from "@/components/AdminNavbar";
         <v-row justify="center">
           <v-col><p>DOB:</p></v-col>
           <v-col>
-            <datepicker selected="" v-model="dob" :upper-limit="today">DOB</datepicker>
+            <v-input :model-value="dob" :rules="dobRules">
+              <datepicker v-model="dob" :upper-limit="today"></datepicker>
+            </v-input>
           </v-col>
           <v-col><p>Joining Date:</p></v-col>
           <v-col>
-            <datepicker selected="" v-model="joiningDate" :upper-limit="today">DOB</datepicker>
+            <v-input :model-value="joiningDate" :rules="joiningDateRules">
+              <datepicker v-model="joiningDate" :upper-limit="today"></datepicker>
+            </v-input>
           </v-col>
         </v-row>
         <v-row>
@@ -52,6 +56,7 @@ import AdminNavbar from "@/components/AdminNavbar";
         </v-row>
       </v-container>
     </v-form>
+
     <v-container>
       <v-row justify="space-between">
         <v-col xl="4" lg="4" md="4" sm="12" xs="12" style="background-color: deeppink">
@@ -75,6 +80,19 @@ import AdminNavbar from "@/components/AdminNavbar";
 
 <script>
 import studentService from "@/services/studentService";
+
+function validateDOB(dob) {
+  let upperBorder = new Date();
+  let upperYear = upperBorder.getUTCFullYear() - 17;
+  upperBorder.setFullYear(upperYear);
+
+  let lowerBorder = new Date();
+  let lowerYear = lowerBorder.getUTCFullYear() - 60;
+  lowerBorder.setFullYear(lowerYear);
+
+  return dob > lowerBorder && dob < upperBorder;
+}
+
 export default {
   name: "UpdateStudent",
   mounted() {
@@ -98,7 +116,8 @@ export default {
     valid: true,
     idRules: [
       v => !!v || 'Student ID is required',
-      v => Number.isInteger(Number(v)) || 'Not a Number'],
+      v => Number.isInteger(Number(v)) || 'Not a Number',
+    ],
     firstNameRules: [
       v => !!v || 'Firstname is required',
     ],
@@ -109,6 +128,12 @@ export default {
     departmentRules: [
       v => v != 0 || 'Select Department'
     ],
+    dobRules: [
+      dob => validateDOB(dob) || 'Invalid DOB - you must be between 17 and 60',
+    ],
+    joiningDateRules: [
+      v => v.getUTCFullYear() === 2015 || 'Invalid Year - only 2015 allowed',
+    ],
     gender: 0,
     departments: ['Computer Science', 'Mathematics', 'Engineering'],
     department: '',
@@ -116,6 +141,7 @@ export default {
   methods: {
     updateStudent() {
       studentService.updateStudent(this.id, this.firstName, this.lastName, this.dob, this.joiningDate, this.gender, this.department, this.email);
+      alert('Student updated');
     },
     cancel() {
       this.$router.back();
