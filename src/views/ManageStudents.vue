@@ -22,7 +22,12 @@
       <td>{{ student.gender }}</td>
       <td>{{ student.department }}</td>
       <td>{{ student.email }}</td>
-      <td><v-btn @click="deleteStudent(student.id)">Delete</v-btn></td>
+      <td>
+        <v-btn @click="deleteStudent(student.id)">Delete</v-btn>
+      </td>
+      <td>
+        <v-btn @click="updateStudent(student)">Update</v-btn>
+      </td>
     </tr>
     <v-btn variant="outlined" color="primary" @click="addStudent">add Student</v-btn>
     </tbody>
@@ -53,6 +58,22 @@ export default {
     },
     deleteStudent(id) {
       StudentService.deleteStudent(id);
+    },
+    updateStudent(student) {
+      console.log("updateharder: " + student.id);
+      this.$router.push({
+        name: "UpdateStudent",
+        params: {
+          id: student.id,
+          firstName: student.firstName,
+          lastName: student.lastName,
+          dob: student.dob,
+          joiningDate: student.joiningDate,
+          gender: student.gender,
+          department: student.department,
+          email: student.email,
+        }
+      })
     }
   }
 }

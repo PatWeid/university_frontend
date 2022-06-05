@@ -4,6 +4,7 @@ import Login from "@/views/Login";
 import ManageData from "@/views/ManageData";
 import ManageStudents from "@/views/ManageStudents";
 import AddStudent from "@/views/AddStudent";
+import UpdateStudent from "@/views/UpdateStudent";
 
 const routes = [
     {
@@ -30,6 +31,12 @@ const routes = [
         path: "/addStudent",
         name: "AddStudent",
         component: AddStudent,
+    },
+    {
+        path: "/updateStudent",
+        name: "UpdateStudent",
+        component: UpdateStudent,
+        props: true,
     },
 ];
 

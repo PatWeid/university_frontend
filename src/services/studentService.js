@@ -13,6 +13,9 @@ class StudentService {
     deleteStudent(id) {
         return axios.delete(ENDPOINT_STUDENTS_URL + "/" + id);
     }
+    updateStudent(id, firstName, lastName, dob, joiningDate, gender, department, email) {
+        return axios.put(ENDPOINT_STUDENTS_URL+ "/" + id, {id, firstName, lastName, dob, joiningDate, gender, department, email});
+    }
 }
 
 export default new StudentService();

@@ -3,10 +3,7 @@ import Datepicker from 'vue3-datepicker'
 </script>
 
 <template>
-  <h1>Add Student</h1>
-
-
-  <v-card title="Add Student">
+  <v-card title="Student">
 
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-container>
@@ -42,28 +39,24 @@ import Datepicker from 'vue3-datepicker'
         <v-row>
           <v-col>
             <v-select :rules="departmentRules"
-                :items="departments"
-                label="Department"
-                v-model="department"
+                      :items="departments"
+                      label="Department"
+                      v-model="department"
             ></v-select>
           </v-col>
           <v-col>
             <v-text-field v-model="email" :rules="emailRules" label="E-Mail"></v-text-field>
           </v-col>
         </v-row>
-        <v-btn :disabled="!valid" @click="addStudent">Add Student</v-btn>
       </v-container>
-
-
     </v-form>
-
   </v-card>
 </template>
 
 <script>
 import studentService from "../services/studentService.js";
 export default {
-  name: "AddStudent",
+  name: "StudentForm",
   data: () => ({
     id: '',
     dob: new Date(),
@@ -84,7 +77,7 @@ export default {
       v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
     ],
     departmentRules: [
-        v => v != 0 || 'Select Department'
+      v => v != 0 || 'Select Department'
     ],
     gender: 0,
     departments: ['Computer Science', 'Mathematics', 'Engineering'],
