@@ -3,30 +3,48 @@
   <h1>Manage Students</h1>
   <v-container>
     <v-row justify="space-around">
-      <v-col cols="2">
-        <p>Filter Department</p>
+      <v-col cols="3">
+        <v-card title="Filter Department">
+          <v-select :items="departments" label="Department" v-model="departmentFilter"></v-select>
+          <v-btn @click="clearDepartmentFilter">Clear Filter</v-btn>
+        </v-card>
       </v-col>
-      <v-col cols="2">
-        <v-select :items="departments" label="Department" v-model="departmentFilter"></v-select>
-      </v-col>
-      <v-col cols="2">
-        <v-btn @click="clearDepartmentFilter">Clear Filter</v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-container>
-    <v-row justify="space-around">
-      <v-col cols="2">
-        <p>Filter Month</p>
-      </v-col>
-      <v-col cols="2">
-        <v-select :items="semesters" label="Month" v-model="semesterFilter"></v-select>
-      </v-col>
-      <v-col cols="2">
-        <v-btn @click="clearSemesterFilter">Clear Filter</v-btn>
+      <v-col cols="3">
+        <v-card title="Filter Semester">
+          <v-select :items="semesters" label="Month" v-model="semesterFilter"></v-select>
+          <v-btn @click="clearSemesterFilter">Clear Filter</v-btn>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
+
+
+<!--  <v-container>-->
+<!--    <v-row justify="space-around">-->
+<!--      <v-col cols="2">-->
+<!--        <p>Filter Department</p>-->
+<!--      </v-col>-->
+<!--      <v-col cols="2">-->
+<!--        <v-select :items="departments" label="Department" v-model="departmentFilter"></v-select>-->
+<!--      </v-col>-->
+<!--      <v-col cols="2">-->
+<!--        <v-btn @click="clearDepartmentFilter">Clear Filter</v-btn>-->
+<!--      </v-col>-->
+<!--    </v-row>-->
+<!--  </v-container>-->
+<!--  <v-container>-->
+<!--    <v-row justify="space-around">-->
+<!--      <v-col cols="2">-->
+<!--        <p>Filter Month</p>-->
+<!--      </v-col>-->
+<!--      <v-col cols="2">-->
+<!--        <v-select :items="semesters" label="Month" v-model="semesterFilter"></v-select>-->
+<!--      </v-col>-->
+<!--      <v-col cols="2">-->
+<!--        <v-btn @click="clearSemesterFilter">Clear Filter</v-btn>-->
+<!--      </v-col>-->
+<!--    </v-row>-->
+<!--  </v-container>-->
   <v-table>
     <thead>
     <th class="text-left">Student ID</th>
@@ -43,8 +61,8 @@
       <td>{{ student.id }}</td>
       <td>{{ student.firstName }}</td>
       <td>{{ student.lastName }}</td>
-      <td>{{ student.dob.slice(0,10)}}</td>
-      <td>{{ student.joiningDate.slice(0,10) }}</td>
+      <td>{{ student.dob.slice(0, 10) }}</td>
+      <td>{{ student.joiningDate.slice(0, 10) }}</td>
       <td>{{ student.gender }}</td>
       <td>{{ student.department }}</td>
       <td>{{ student.email }}</td>
@@ -55,7 +73,7 @@
         <v-btn @click="updateStudent(student)">Update</v-btn>
       </td>
     </tr>
-    <v-btn variant="outlined" color="primary" @click="addStudent">add Student</v-btn>
+    <v-btn variant="outlined" @click="addStudent">add Student</v-btn>
     </tbody>
   </v-table>
 </template>
@@ -87,6 +105,7 @@ export default {
           return ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
         }
       }
+
       const semesterMonths = mapSemsterFilter(this.semesterFilter);
       return this.students.filter(student => {
         const department = student.department;

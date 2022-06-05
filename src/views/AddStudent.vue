@@ -59,7 +59,7 @@ import AdminNavbar from "@/components/AdminNavbar";
 
     <v-container>
       <v-row justify="space-between">
-        <v-col xl="4" lg="4" md="4" sm="12" xs="12" style="background-color: deeppink">
+        <v-col xl="4" lg="4" md="4" sm="12" xs="12">
           <v-container>
             <v-row justify="space-between">
               <v-col>
