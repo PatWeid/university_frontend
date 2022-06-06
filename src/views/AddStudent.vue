@@ -74,8 +74,6 @@ import AdminNavbar from "@/components/AdminNavbar";
         </v-col>
       </v-row>
     </v-container>
-
-
   </v-card>
 </template>
 

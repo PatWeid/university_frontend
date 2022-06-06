@@ -4,6 +4,7 @@ import ManageData from "@/views/ManageData";
 import ManageStudents from "@/views/ManageStudents";
 import AddStudent from "@/views/AddStudent";
 import UpdateStudent from "@/views/UpdateStudent";
+import ManageStaff from "@/views/ManageStaff";
 
 const routes = [
     {
@@ -32,6 +33,16 @@ const routes = [
         component: UpdateStudent,
         props: true,
     },
+    {
+        path: "/manageStaff",
+        name: "ManageStaff",
+        component: ManageStaff,
+    },
+    // {
+    //     path: "/addStaff",
+    //     name: "AddStaff",
+    //     component: AddStaff,
+    // },
 ];
 
 const router = createRouter({
