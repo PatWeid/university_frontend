@@ -1,6 +1,9 @@
 <template>
   <admin-navbar/>
-  <h1>Manage Staff</h1>
+  <v-container>
+    <h1>Manage Staff</h1>
+  </v-container>
+  <v-container>
   <v-table>
     <thead>
     <th class="text-left">Staff ID</th>
@@ -32,9 +35,9 @@
         </v-col>
       </v-row>
     </v-container>
-
     </tbody>
   </v-table>
+  </v-container>
 </template>
 
 <script>

@@ -5,6 +5,7 @@
     <v-btn theme="dark" @click="manageStaff">Manage Staff</v-btn>
     <v-btn theme="dark" @click="logout">Logout</v-btn>
   </v-toolbar>
+  <hr>
 </template>
 
 <script>

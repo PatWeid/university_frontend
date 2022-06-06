@@ -1,6 +1,11 @@
 <template>
-
-  <h1>Login</h1>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="6">
+        <v-img src="@/assets/banner.png"></v-img>
+      </v-col>
+    </v-row>
+  </v-container>
   <v-container>
     <v-row justify="space-around">
       <v-col  xl="4" lg="4" md="4" sm="12" xs="12">

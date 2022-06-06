@@ -5,7 +5,10 @@ import AdminNavbar from "@/components/AdminNavbar";
 
 <template>
   <admin-navbar/>
-  <h1>Add Student</h1>
+  <v-container>
+    <h1>Add Student</h1>
+  </v-container>
+  <v-container>
   <v-card>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-container>
@@ -75,6 +78,7 @@ import AdminNavbar from "@/components/AdminNavbar";
       </v-row>
     </v-container>
   </v-card>
+  </v-container>
 </template>
 
 <script>
