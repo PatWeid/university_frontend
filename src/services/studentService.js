@@ -16,6 +16,10 @@ class StudentService {
     updateStudent(id, firstName, lastName, dob, joiningDate, gender, department, email) {
         return axios.put(ENDPOINT_STUDENTS_URL+ "/" + id, {id, firstName, lastName, dob, joiningDate, gender, department, email});
     }
+
+    getStudentsByCourse(course) {
+        return axios.get(ENDPOINT_STUDENTS_URL + "/course/" + course);
+    }
 }
 
 export default new StudentService();

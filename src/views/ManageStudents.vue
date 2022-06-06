@@ -17,34 +17,6 @@
       </v-col>
     </v-row>
   </v-container>
-
-
-  <!--  <v-container>-->
-  <!--    <v-row justify="space-around">-->
-  <!--      <v-col cols="2">-->
-  <!--        <p>Filter Department</p>-->
-  <!--      </v-col>-->
-  <!--      <v-col cols="2">-->
-  <!--        <v-select :items="departments" label="Department" v-model="departmentFilter"></v-select>-->
-  <!--      </v-col>-->
-  <!--      <v-col cols="2">-->
-  <!--        <v-btn @click="clearDepartmentFilter">Clear Filter</v-btn>-->
-  <!--      </v-col>-->
-  <!--    </v-row>-->
-  <!--  </v-container>-->
-  <!--  <v-container>-->
-  <!--    <v-row justify="space-around">-->
-  <!--      <v-col cols="2">-->
-  <!--        <p>Filter Month</p>-->
-  <!--      </v-col>-->
-  <!--      <v-col cols="2">-->
-  <!--        <v-select :items="semesters" label="Month" v-model="semesterFilter"></v-select>-->
-  <!--      </v-col>-->
-  <!--      <v-col cols="2">-->
-  <!--        <v-btn @click="clearSemesterFilter">Clear Filter</v-btn>-->
-  <!--      </v-col>-->
-  <!--    </v-row>-->
-  <!--  </v-container>-->
   <v-table>
     <thead>
     <th class="text-left">Student ID</th>

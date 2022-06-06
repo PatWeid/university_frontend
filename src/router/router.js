@@ -7,6 +7,7 @@ import UpdateStudent from "@/views/UpdateStudent";
 import ManageStaff from "@/views/ManageStaff";
 import AddStaff from "@/views/AddStaff";
 import UpdateStaff from "@/views/UpdateStaff";
+import StaffPage from "@/views/StaffPage";
 
 const routes = [
     {
@@ -50,6 +51,11 @@ const routes = [
         name: "UpdateStaff",
         component: UpdateStaff,
         props: true,
+    },
+    {
+        path: "/staffPage",
+        name: "staffPage",
+        component: StaffPage,
     },
 ];
 

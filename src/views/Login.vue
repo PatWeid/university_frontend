@@ -54,7 +54,7 @@ export default {
     },
     staffLogin() {
       if (!(this.userName_s === this.staffUserName && this.password_s === this.staffPassword)) {
-        this.$router.push('/allStudents');
+        this.$router.push('/StaffPage');
       } else {
         this.count--;
         alert('invalid Login ' + this.count + ' more tries');
