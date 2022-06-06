@@ -1,60 +1,63 @@
 <template>
-  <h1>StaffPage</h1>
-  <h1>Course Overview</h1>
+  <StaffNavbar/>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="3">
+        <h1>Department Overview</h1>
+      </v-col>
+    </v-row>
+  </v-container>
 
-  <v-table>
-    <thead>
+  <v-container>
+    <h3>Departments - click to show students</h3>
+  </v-container>
 
-    </thead>
+  <v-container>
+  <v-table :show-expand="true">
     <tbody>
     <tr v-for="department in departments" :key="department">
-      <v-card @click="expand(department)">
-        {{ department }}
-      </v-card>
+      <td>
+        <v-row>
+          <v-col @click="expand(department)">
+            {{ department }}
+          </v-col>
+        </v-row>
+      </td>
     </tr>
     </tbody>
+    <v-container>
+    <v-btn @click="hide" variant="outlined" color="secondary" rounded="pill" :hidden="hideTable">Hide</v-btn>
+    </v-container>
   </v-table>
-  <h1>Matching Students</h1>
-  <v-table>
-    <thead>
-    <th class="text-left">Student ID</th>
-    <th class="text-left">Firstname</th>
-    <th class="text-left">Lastname</th>
-    <th class="text-left">DOB</th>
-    <th class="text-left">Joining Date</th>
-    <th class="text-left">Gender</th>
-    <th class="text-left">Department</th>
-    <th class="text-left">E-Mail</th>
-    </thead>
-    <tbody>
-    <tr v-for="student in students" :key="student.id">
-      <td>{{ student.id }}</td>
-      <td>{{ student.firstName }}</td>
-      <td>{{ student.lastName }}</td>
-      <td>{{ student.dob.slice(0, 10) }}</td>
-      <td>{{ student.joiningDate.slice(0, 10) }}</td>
-      <td>{{ student.gender }}</td>
-      <td>{{ student.department }}</td>
-      <td>{{ student.email }}</td>
-    </tr>
-    </tbody>
-  </v-table>
+
+  <v-container :hidden="hideTable">
+    <StudentTable :students="students"/>
+  </v-container>
+  </v-container>
 </template>
 
 <script>
 import studentService from "@/services/studentService";
+import StaffNavbar from "@/components/StaffNavbar";
+import StudentTable from "@/components/StudentTable";
 
 export default {
   name: "StaffPage",
+  components: {StudentTable, StaffNavbar},
   data: () => ({
     departments: ['Computer Science', 'Mathematics', 'Engineering'],
     students: [],
+    hideTable: true,
   }),
   methods: {
     expand(department) {
       studentService.getStudentsByCourse(department).then((response) => {
         this.students = response.data;
       })
+      this.hideTable = false;
+    },
+    hide() {
+      this.hideTable = true;
     }
   }
 

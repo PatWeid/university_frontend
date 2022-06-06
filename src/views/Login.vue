@@ -42,7 +42,7 @@ export default {
   }),
   methods: {
     adminLogin() {
-      if (!(this.userName_a === this.adminUserName && this.password_a === this.adminPassword)) {
+      if (this.userName_a === this.adminUserName && this.password_a === this.adminPassword) {
         this.$router.push('/manageData');
       } else {
         this.count--;
@@ -53,7 +53,7 @@ export default {
       }
     },
     staffLogin() {
-      if (!(this.userName_s === this.staffUserName && this.password_s === this.staffPassword)) {
+      if (this.userName_s === this.staffUserName && this.password_s === this.staffPassword) {
         this.$router.push('/StaffPage');
       } else {
         this.count--;
