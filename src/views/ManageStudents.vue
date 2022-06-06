@@ -135,6 +135,8 @@ export default {
     },
     deleteStudent(id) {
       StudentService.deleteStudent(id);
+      alert('Student deleted');
+      this.getAllStudents();
     },
     updateStudent(student) {
       this.$router.push({

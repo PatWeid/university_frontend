@@ -63,6 +63,8 @@ export default {
     },
     deleteStaff(id) {
       StaffService.deleteStaff(id);
+      alert('Staff deleted');
+      this.getAllStaff();
     },
     updateStaff(staff) {
       this.$router.push({
