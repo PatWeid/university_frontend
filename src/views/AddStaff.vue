@@ -11,7 +11,7 @@ import AdminNavbar from "@/components/AdminNavbar";
       <v-container>
         <v-row justify="space-around">
           <v-col>
-            <v-text-field v-model="StaffID" :rules="idRules" label="Staff ID"></v-text-field>
+            <v-text-field v-model="staffID" :rules="idRules" label="Staff ID"></v-text-field>
           </v-col>
           <v-col>
             <v-text-field v-model="firstName" :rules="firstNameRules" label="Firstname"></v-text-field>
@@ -28,7 +28,7 @@ import AdminNavbar from "@/components/AdminNavbar";
             </v-input>
           </v-col>
           <v-col>
-            <v-radio-group v-model="gender">
+            <v-radio-group v-model="gender" label="Gender">
               <v-radio label="male" value="male"></v-radio>
               <v-radio label="female" value="female"></v-radio>
             </v-radio-group>
@@ -95,6 +95,7 @@ export default {
     addStaff() {
       staffService.addStaff(0, this.staffID, this.firstName, this.lastName, this.dob, this.gender, this.email);
       alert('Staff added');
+      this.$router.back();
     },
     cancel() {
       this.$router.back();

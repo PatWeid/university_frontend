@@ -36,7 +36,7 @@ import AdminNavbar from "@/components/AdminNavbar";
         </v-row>
         <v-row>
           <v-container class="px-0" fluid>
-            <v-radio-group v-model="gender">
+            <v-radio-group v-model="gender" label="Gender">
               <v-radio label="male" value="male"></v-radio>
               <v-radio label="female" value="female"></v-radio>
             </v-radio-group>
@@ -131,6 +131,7 @@ export default {
     addStudent() {
       studentService.addStudent(this.id, this.firstName, this.lastName, this.dob, this.joiningDate, this.gender, this.department, this.email);
       alert('Student added');
+      this.$router.back();
     },
     cancel() {
       this.$router.back();
