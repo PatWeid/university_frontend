@@ -5,6 +5,11 @@
 npm install
 ```
 
+## Application
+```
+http://localhost:8081/
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
