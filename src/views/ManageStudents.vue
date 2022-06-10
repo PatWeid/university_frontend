@@ -120,13 +120,6 @@ export default {
         name: "UpdateStudent",
         params: {
           id: student.id,
-          firstName: student.firstName,
-          lastName: student.lastName,
-          dob: student.dob,
-          joiningDate: student.joiningDate,
-          gender: student.gender,
-          department: student.department,
-          email: student.email,
         }
       })
     },

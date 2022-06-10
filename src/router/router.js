@@ -31,7 +31,7 @@ const routes = [
         component: AddStudent,
     },
     {
-        path: "/updateStudent",
+        path: "/updateStudent/:id",
         name: "UpdateStudent",
         component: UpdateStudent,
         props: true,

@@ -6,78 +6,78 @@ import AdminNavbar from "@/components/AdminNavbar";
 <template>
   <AdminNavbar/>
   <v-container>
-    <h1>Update Student</h1>
+    <h1>Update Student - ID: {{ $route.params.id }}</h1>
   </v-container>
   <v-container>
-  <v-card>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-card>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-container>
+          <v-row justify="space-around">
+            <v-col>
+              <v-text-field v-model="id" :disabled=true :rules="idRules" label="Student ID"></v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field v-model="firstName" :rules="firstNameRules" label="Firstname"></v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field v-model="lastName" label="Lastname"></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <v-col><p>DOB:</p></v-col>
+            <v-col>
+              <v-input :model-value="dob" :rules="dobRules">
+                <datepicker v-model="dob" :upper-limit="today"></datepicker>
+              </v-input>
+            </v-col>
+            <v-col><p>Joining Date:</p></v-col>
+            <v-col>
+              <v-input :model-value="joiningDate" :rules="joiningDateRules">
+                <datepicker v-model="joiningDate" :upper-limit="today"></datepicker>
+              </v-input>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-container class="px-0" fluid>
+              <v-radio-group v-model="gender" label="Gender">
+                <v-radio label="male" value="male"></v-radio>
+                <v-radio label="female" value="female"></v-radio>
+              </v-radio-group>
+            </v-container>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-select :rules="departmentRules"
+                        :items="departments"
+                        label="Department"
+                        v-model="department"
+              ></v-select>
+            </v-col>
+            <v-col>
+              <v-text-field v-model="email" :rules="emailRules" label="E-Mail"></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+
       <v-container>
-        <v-row justify="space-around">
-          <v-col>
-            <v-text-field v-model="id" :disabled=true :rules="idRules" label="Student ID"></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field v-model="firstName" :rules="firstNameRules" label="Firstname"></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field v-model="lastName" label="Lastname"></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col><p>DOB:</p></v-col>
-          <v-col>
-            <v-input :model-value="dob" :rules="dobRules">
-              <datepicker v-model="dob" :upper-limit="today"></datepicker>
-            </v-input>
-          </v-col>
-          <v-col><p>Joining Date:</p></v-col>
-          <v-col>
-            <v-input :model-value="joiningDate" :rules="joiningDateRules">
-              <datepicker v-model="joiningDate" :upper-limit="today"></datepicker>
-            </v-input>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-container class="px-0" fluid>
-            <v-radio-group v-model="gender" label="Gender">
-              <v-radio label="male" value="male"></v-radio>
-              <v-radio label="female" value="female"></v-radio>
-            </v-radio-group>
-          </v-container>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-select :rules="departmentRules"
-                      :items="departments"
-                      label="Department"
-                      v-model="department"
-            ></v-select>
-          </v-col>
-          <v-col>
-            <v-text-field v-model="email" :rules="emailRules" label="E-Mail"></v-text-field>
+        <v-row justify="space-between">
+          <v-col xl="4" lg="4" md="4" sm="12" xs="12">
+            <v-container>
+              <v-row justify="space-between">
+                <v-col>
+                  <v-btn :disabled="!valid" @click="updateStudent">Update Student</v-btn>
+                </v-col>
+                <v-col>
+                  <v-btn @click="cancel">Cancel</v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+            <v-spacer/>
           </v-col>
         </v-row>
       </v-container>
-    </v-form>
-
-    <v-container>
-      <v-row justify="space-between">
-        <v-col xl="4" lg="4" md="4" sm="12" xs="12">
-          <v-container>
-            <v-row justify="space-between">
-              <v-col>
-                <v-btn :disabled="!valid" @click="updateStudent">Update Student</v-btn>
-              </v-col>
-              <v-col>
-                <v-btn @click="cancel">Cancel</v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-spacer/>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+    </v-card>
   </v-container>
 </template>
 
@@ -99,15 +99,20 @@ function validateDOB(dob) {
 export default {
   name: "UpdateStudent",
   mounted() {
-    this.id = this.$route.params.id;
-    this.firstName = this.$route.params.firstName;
-    this.lastName = this.$route.params.lastName;
-    this.dob = new Date(this.$route.params.dob);
-    this.joiningDate = new Date(this.$route.params.joiningDate);
-    this.gender = this.$route.params.gender;
-    this.department = this.$route.params.department;
-    this.email = this.$route.params.email;
+    studentService.getStudentByID(this.$route.params.id).then(
+        (response) => {
+          this.id = response.data.id;
+          this.firstName = response.data.firstName;
+          this.lastName = response.data.lastName;
+          this.dob = new Date(response.data.dob);
+          this.joiningDate = new Date(response.data.joiningDate);
+          this.gender = response.data.gender;
+          this.department = response.data.department;
+          this.email = response.data.email;
+        },
+    );
   },
+
   data: () => ({
     id: '',
     dob: new Date(),
@@ -117,6 +122,10 @@ export default {
     lastName: '',
     email: '',
     valid: true,
+    gender: 0,
+    departments: ['Computer Science', 'Mathematics', 'Engineering'],
+    department: '',
+
     idRules: [
       v => !!v || 'Student ID is required',
       v => Number.isInteger(Number(v)) || 'Not a Number',
@@ -137,10 +146,8 @@ export default {
     joiningDateRules: [
       v => v.getUTCFullYear() === 2015 || 'Invalid Year - only 2015 allowed',
     ],
-    gender: 0,
-    departments: ['Computer Science', 'Mathematics', 'Engineering'],
-    department: '',
   }),
+
   methods: {
     updateStudent() {
       studentService.updateStudent(this.id, this.firstName, this.lastName, this.dob, this.joiningDate, this.gender, this.department, this.email);
@@ -150,7 +157,8 @@ export default {
     cancel() {
       this.$router.back();
     }
-  }
+  },
+
 }
 </script>
 

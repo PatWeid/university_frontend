@@ -20,6 +20,10 @@ class StudentService {
     getStudentsByCourse(course) {
         return axios.get(ENDPOINT_STUDENTS_URL + "/course/" + course);
     }
+
+    getStudentByID(id) {
+        return axios.get(ENDPOINT_STUDENTS_URL + '/' + id);
+    }
 }
 
 export default new StudentService();
